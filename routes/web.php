@@ -40,32 +40,32 @@ Route::get('login/{service}/callback', 'Auth\LoginController@handleProviderCallb
 // Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 // Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::get('/faqs',function(){
+Route::get('/faqs', function () {
   return view('faq');
 })->name('faq.get');
 
-Route::get('/home', function(){
+Route::get('/home', function () {
   $topics = Topic::all();
   $questions = Question::all();
   return view('home', compact('topics', 'questions'));
 });
 
 Route::get('/redirect', function () {
-    $query = http_build_query([
-        'client_id' => '1',
-        'redirect_uri' => 'http://example.com/callback',
-        'response_type' => 'token', 
-        'scope' => '',
-    ]);
+  $query = http_build_query([
+    'client_id' => '1',
+    'redirect_uri' => 'http://example.com/callback',
+    'response_type' => 'token',
+    'scope' => '',
+  ]);
 
-    return redirect('http://your-app.com/oauth/authorize?'.$query);
+  return redirect('http://your-app.com/oauth/authorize?' . $query);
 });
 
-Route::group(['middleware'=> 'isadmin'], function(){
+Route::group(['middleware' => 'isadmin'], function () {
 
-  Route::delete('delete/sheet/quiz/{id}','TopicController@deleteperquizsheet')->name('del.per.quiz.sheet');
+  Route::delete('delete/sheet/quiz/{id}', 'TopicController@deleteperquizsheet')->name('del.per.quiz.sheet');
 
-  Route::get('/admin', function(){
+  Route::get('/admin', function () {
 
     $user = User::where('role', '!=', 'A')->count();
     $question = Question::count();
@@ -78,7 +78,7 @@ Route::group(['middleware'=> 'isadmin'], function(){
 
   });
 
-  Route::delete('reset/response/{topicid}/{userid}','AllReportController@delete');
+  Route::delete('reset/response/{topicid}/{userid}', 'AllReportController@delete');
 
   Route::resource('/admin/all_reports', 'AllReportController');
   Route::resource('/admin/top_report', 'TopReportController');
@@ -91,11 +91,10 @@ Route::group(['middleware'=> 'isadmin'], function(){
 
   Route::post('/admin/users/destroy', 'DestroyAllController@AllUsersDestroy');
   Route::post('/admin/answers/destroy', 'DestroyAllController@AllAnswersDestroy');
-
 });
 
 Route::resource('/admin/users', 'UsersController');
-Route::get('/admin/profile', function(){
+Route::get('/admin/profile', function () {
   if (Auth::check()) {
     return view('admin.users.profile');
   } else {
@@ -116,10 +115,10 @@ Route::get('/admin/my_reports/{my_reports}', 'MyReportsController@show')->name('
 
 
 
-Route::get('start_quiz/{id}', function($id){
+Route::get('start_quiz/{id}', function ($id) {
   $topic = Topic::findOrFail($id);
-  $answers = Answer::where('topic_id','=',$topic->topic_id)->first();
-  return view('main_quiz', compact('topic','answers'));
+  $answers = Answer::where('topic_id', '=', $topic->topic_id)->first();
+  return view('main_quiz', compact('topic', 'answers'));
 })->name('start_quiz');
 
 
@@ -128,23 +127,23 @@ Route::get('start_quiz/{id}', function($id){
 
 Route::resource('start_quiz/{id}/quiz', 'MainQuizController');
 
-Route::get('start_quiz/{id}/finish', function($id){
+Route::get('start_quiz/{id}/finish', function ($id) {
   $auth = Auth::user();
   $topic = Topic::findOrFail($id);
   $questions = Question::where('topic_id', $id)->get();
   $count_questions = $questions->count();
-  $answers = Answer::where('user_id',$auth->id)
-              ->where('topic_id',$id)->get(); 
+  $answers = Answer::where('user_id', $auth->id)
+    ->where('topic_id', $id)->get();
 
-  if($count_questions != $answers->count()){
-    foreach($questions as $que){ 
-      $a = false;   
-      foreach($answers as $ans){ 
-        if($que->id == $ans->question_id){ 
+  if ($count_questions != $answers->count()) {
+    foreach ($questions as $que) {
+      $a = false;
+      foreach ($answers as $ans) {
+        if ($que->id == $ans->question_id) {
           $a = true;
         }
       }
-      if($a == false){  
+      if ($a == false) {
         Answer::create([
           'topic_id' => $id,
           'user_id' => $auth->id,
@@ -156,85 +155,80 @@ Route::get('start_quiz/{id}/finish', function($id){
     }
   }
 
-  $ans= Answer::all();
-  $q= Question::all();
-  
-  return view('finish', compact('ans','q','topic', 'answers', 'count_questions'));
+  $ans = Answer::all();
+  $q = Question::all();
+
+  return view('finish', compact('ans', 'q', 'topic', 'answers', 'count_questions'));
 });
 
 
-Route::get('/admin/pages','PagesController@index')->name('pages.index');
+Route::get('/admin/pages', 'PagesController@index')->name('pages.index');
 
-Route::get('/admin/pages/add','PagesController@add')->name('pages.add');
+Route::get('/admin/pages/add', 'PagesController@add')->name('pages.add');
 
-Route::post('/admin/pages/add','PagesController@store')->name('pages.store');
+Route::post('/admin/pages/add', 'PagesController@store')->name('pages.store');
 
-Route::get('pages/{slug}','PagesController@show')->name('page.show');
-
-
-Route::get('/admin/pages/edit/{id}','PagesController@edit')->name('pages.edit');
-
-Route::put('/admin/pages/edit/{id}','PagesController@update')->name('pages.update');
-
-Route::delete('/delete/pages/{id}','PagesController@destroy')->name('pages.delete'); 
+Route::get('pages/{slug}', 'PagesController@show')->name('page.show');
 
 
+Route::get('/admin/pages/edit/{id}', 'PagesController@edit')->name('pages.edit');
 
+Route::put('/admin/pages/edit/{id}', 'PagesController@update')->name('pages.update');
 
-Route::get('admin/moresettings/faq/','FAQController@index')->name('faq.index');
-Route::get('admin/moresettings/faq/add','FAQController@create')->name('faq.add');
-Route::post('/admin/moresettings/faq/insert','FAQController@store')->name('faq.store');
-Route::get('/admin/moresettings/faq/edit/{id}','FAQController@edit')->name('faq.edit');
-Route::put('/admin/moresettings/faq/edit/{id}','FAQController@update')->name('faq.update');
-Route::delete('/faq/delete/{id}','FAQController@destroy')->name('faq.delete');
+Route::delete('/delete/pages/{id}', 'PagesController@destroy')->name('pages.delete');
 
 
 
 
-Route::get('admin/moresettings/copyright','CopyrighttextController@index')->name('copyright.index');
+Route::get('admin/moresettings/faq/', 'FAQController@index')->name('faq.index');
+Route::get('admin/moresettings/faq/add', 'FAQController@create')->name('faq.add');
+Route::post('/admin/moresettings/faq/insert', 'FAQController@store')->name('faq.store');
+Route::get('/admin/moresettings/faq/edit/{id}', 'FAQController@edit')->name('faq.edit');
+Route::put('/admin/moresettings/faq/edit/{id}', 'FAQController@update')->name('faq.update');
+Route::delete('/faq/delete/{id}', 'FAQController@destroy')->name('faq.delete');
 
-Route::put('admin/moresettings/copyright/{id}','CopyrighttextController@update')->name('copyright.update');
 
 
 
-Route::get('admin/moresettings/socialicons/','SocialController@index')->name('socialicons.index');
-Route::post('/admin/moresettings/socialicons/insert','SocialController@store')->name('social.store');
- Route::put('/admin/moresettings/socialicons/active/{id}','SocialController@active')->name('social.active');
- Route::put('/admin/moresettings/socialicons/deactive/{id}','SocialController@deactive')->name('social.deactive');
- Route::delete('/admin/moresettings/socialicons/delete/{id}','SocialController@destroy')->name('social.delete');
+Route::get('admin/moresettings/copyright', 'CopyrighttextController@index')->name('copyright.index');
+
+Route::put('admin/moresettings/copyright/{id}', 'CopyrighttextController@update')->name('copyright.update');
+
+
+
+Route::get('admin/moresettings/socialicons/', 'SocialController@index')->name('socialicons.index');
+Route::post('/admin/moresettings/socialicons/insert', 'SocialController@store')->name('social.store');
+Route::put('/admin/moresettings/socialicons/active/{id}', 'SocialController@active')->name('social.active');
+Route::put('/admin/moresettings/socialicons/deactive/{id}', 'SocialController@deactive')->name('social.deactive');
+Route::delete('/admin/moresettings/socialicons/delete/{id}', 'SocialController@destroy')->name('social.delete');
 //env.
 
-Route::get('/admin/mail-settings','Configcontroller@getset')->name('mail.getset');
+Route::get('/admin/mail-settings', 'Configcontroller@getset')->name('mail.getset');
 Route::post('admin/mail-settings', 'Configcontroller@changeMailEnvKeys')->name('mail.update');
 
 Route::get('/admin/custom-style-settings', 'CustomStyleController@addStyle')->name('customstyle');
-Route::post('/admin/custom-style-settings/addcss','CustomStyleController@storeCSS')->name('css.store');
-Route::post('/admin/custom-style-settings/addjs','CustomStyleController@storeJS')->name('js.store');
+Route::post('/admin/custom-style-settings/addcss', 'CustomStyleController@storeCSS')->name('css.store');
+Route::post('/admin/custom-style-settings/addjs', 'CustomStyleController@storeJS')->name('js.store');
 //payment getway
-Route::get('/admin/mail','ApiController@setApiView')->name('api.setApiView');
-Route::post('/admin/mail','ApiController@changeEnvKeys')->name('api.update');
+Route::get('/admin/mail', 'ApiController@setApiView')->name('api.setApiView');
+Route::post('/admin/mail', 'ApiController@changeEnvKeys')->name('api.update');
 
-Route::get('admin/sociallogin/','ApiController@facebook')->name('set.facebook');
+Route::get('admin/sociallogin/', 'ApiController@facebook')->name('set.facebook');
 
-Route::post('admin/facebook','ApiController@updateFacebookKey')->name('key.facebook');
+Route::post('admin/facebook', 'ApiController@updateFacebookKey')->name('key.facebook');
 
-Route::post('admin/google','ApiController@updateGoogleKey')->name('key.google');
+Route::post('admin/google', 'ApiController@updateGoogleKey')->name('key.google');
 
-Route::post('admin/gitlab','ApiController@updategitlabKey')->name('key.gitlab');
+Route::post('admin/gitlab', 'ApiController@updategitlabKey')->name('key.gitlab');
 
-Route::delete('admin/ans/{id}','Anscontroller@destroy')->name('ans.del');
+Route::delete('admin/ans/{id}', 'Anscontroller@destroy')->name('ans.del');
 
 Route::get('/admin/payment', 'PaymentController@index')->name('admin.payment');
 
 // route for processing payment
 
 
-   Route::post('payment/paypal_post', 'PaypalController@paypal_post')->name('paypal_post');
-  // Handle status
-  Route::get('payment/paypal_success', 'PaypalController@paypal_success')->name('paypal_success');
-  Route::get('payment/paypal_cancel', 'PaypalController@paypal_cancel')->name('paypal_cancel');
-
-
-
-
-
+Route::post('payment/paypal_post', 'PaypalController@paypal_post')->name('paypal_post');
+// Handle status
+Route::get('payment/paypal_success', 'PaypalController@paypal_success')->name('paypal_success');
+Route::get('payment/paypal_cancel', 'PaypalController@paypal_cancel')->name('paypal_cancel');
