@@ -6,6 +6,7 @@ use App\Answer;
 use App\copyrighttext;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,10 +19,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::redirect('/', 'home');
+Route::redirect('/register', 'login');
 
 Auth::routes();
-
-Route::redirect('/register', 'login');
 
 
 /*google login route*/
@@ -102,6 +102,14 @@ Route::get('/admin/profile', function(){
     return redirect('/');
   }
 });
+// route for candidates list and routes for candidate take quiz
+Route::get('/admin/candidates', 'CandidateController@index')->name('candidates.index');
+Route::get('/admin/candidates/{id}', 'CandidateController@show')->name('candidates.show');
+Route::get('/admin/candidates/{id}/quiz', 'CandidateController@quiz')->name('candidates.quiz');
+Route::post('/admin/candidates/{id}/quiz', 'CandidateController@quizStore')->name('candidates.quizStore');
+Route::get('/admin/candidates/{id}/result', 'CandidateController@result')->name('candidates.result');
+Route::get('/admin/candidates/{id}/result/{topic_id}', 'CandidateController@resultShow')->name('candidates.resultShow');
+Route::get('/admin/candidates/{id}/result/{topic_id}/pdf', 'CandidateController@resultPdf')->name('candidates.resultPdf');
 Route::get('/admin/my_reports', 'MyReportsController@index')->name('my_report');
 Route::get('/admin/my_reports/{my_reports}', 'MyReportsController@show')->name('my_report_show');
 
@@ -195,35 +203,30 @@ Route::post('/admin/moresettings/socialicons/insert','SocialController@store')->
  Route::put('/admin/moresettings/socialicons/deactive/{id}','SocialController@deactive')->name('social.deactive');
  Route::delete('/admin/moresettings/socialicons/delete/{id}','SocialController@destroy')->name('social.delete');
 //env.
- Route::get('/admin/mail-settings','Configcontroller@getset')->name('mail.getset');
- Route::post('admin/mail-settings', 'Configcontroller@changeMailEnvKeys')->name('mail.update');
 
-   Route::get('/admin/custom-style-settings', 'CustomStyleController@addStyle')->name('customstyle');
-    Route::post('/admin/custom-style-settings/addcss','CustomStyleController@storeCSS')->name('css.store');
-    Route::post('/admin/custom-style-settings/addjs','CustomStyleController@storeJS')->name('js.store');
+Route::get('/admin/mail-settings','Configcontroller@getset')->name('mail.getset');
+Route::post('admin/mail-settings', 'Configcontroller@changeMailEnvKeys')->name('mail.update');
+
+Route::get('/admin/custom-style-settings', 'CustomStyleController@addStyle')->name('customstyle');
+Route::post('/admin/custom-style-settings/addcss','CustomStyleController@storeCSS')->name('css.store');
+Route::post('/admin/custom-style-settings/addjs','CustomStyleController@storeJS')->name('js.store');
 //payment getway
- Route::get('/admin/mail','ApiController@setApiView')->name('api.setApiView');
-  Route::post('/admin/mail','ApiController@changeEnvKeys')->name('api.update');
+Route::get('/admin/mail','ApiController@setApiView')->name('api.setApiView');
+Route::post('/admin/mail','ApiController@changeEnvKeys')->name('api.update');
 
-  Route::get('admin/sociallogin/','ApiController@facebook')->name('set.facebook');
+Route::get('admin/sociallogin/','ApiController@facebook')->name('set.facebook');
 
-  Route::post('admin/facebook','ApiController@updateFacebookKey')->name('key.facebook');
+Route::post('admin/facebook','ApiController@updateFacebookKey')->name('key.facebook');
 
-  Route::post('admin/google','ApiController@updateGoogleKey')->name('key.google');
+Route::post('admin/google','ApiController@updateGoogleKey')->name('key.google');
 
-  Route::post('admin/gitlab','ApiController@updategitlabKey')->name('key.gitlab');
+Route::post('admin/gitlab','ApiController@updategitlabKey')->name('key.gitlab');
 
-  
-  Route::delete('admin/ans/{id}','Anscontroller@destroy')->name('ans.del');
+Route::delete('admin/ans/{id}','Anscontroller@destroy')->name('ans.del');
 
-  Route::get('/admin/payment', 'PaymentController@index')->name('admin.payment');
+Route::get('/admin/payment', 'PaymentController@index')->name('admin.payment');
 
 // route for processing payment
-
-
-
-
-
 
 
    Route::post('payment/paypal_post', 'PaypalController@paypal_post')->name('paypal_post');
