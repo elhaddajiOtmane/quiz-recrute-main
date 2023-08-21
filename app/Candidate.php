@@ -20,7 +20,7 @@ class Candidate extends Model
     ];
 
     // conectation to database tabel
-    protected $table = 'candidats';
+    protected $table = 'candidates';
 }
 
 
