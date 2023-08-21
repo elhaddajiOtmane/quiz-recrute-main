@@ -79,7 +79,7 @@
                   <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                     {!! Form::label('mobile', 'Mobile No.') !!}
                     <span class="required">*</span>
-                    {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +91-123-456-7890', 'required' => 'required']) !!}
+                    {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +212-123-456-7890', 'required' => 'required']) !!}
                     <small class="text-danger">{{ $errors->first('mobile') }}</small>
                   </div>
                   <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
@@ -111,36 +111,39 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Student Name</th>
-              <th>Email</th>
-              <th>Mobile No.</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>User Role</th>
-              <th>Actions</th>
+              <th>Name</th>
+              <th>last name</th>
+              <th>date de naissance</th>
+              <th>poste que vous souhaitez</th>
+              <th>CV</th>
+              <th>ville de residence</th>
+              <th>lettre de motivation</th>
+              <th>commentaires</th>
             </tr>
           </thead>
           <tbody>
-            @if ($users)
+            @if ($candidates)
               @php($n = 1)
-              @foreach ($users as $key => $user)
+              @foreach ($candidates as $key => $candidate)
                 <tr>
                   <td>
                     {{$n}}
                     @php($n++)
                   </td>
-                  <td>{{$user->name}}</td>
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->mobile}}</td>
-                  <td>{{$user->city}}</td>
-                  <td>{{$user->address}}</td>
-                  <td>{{$user->role == 'S' ? 'Student' : '-'}}</td>
+                  <td>{{$candidate->Nom}}</td>
+                  <td>{{$candidate->prenom}}</td>
+                  <td>{{$candidate->date_de_naissance}}</td>
+                  <td>{{$candidate->poste_que_vous_souhaitez}}</td>
+                  <td>{{$candidate->CV}}</td>
+                  <td>{{$candidate->ville_de_residence}}</td>
+                  <td>{{$candidate->lettre_de_motivation}}</td>
+                  <td>{{$candidate->commentaires}}</td>
                   <td>
                     <!-- Edit Button -->
-                    <a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#{{$user->id}}EditModal"><i class="fa fa-edit"></i> Edit</a>
+                    <a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#{{$candidate->id}}EditModal"><i class="fa fa-edit"></i> Edit</a>
                     <!-- Delete Button -->
-                    <a type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#{{$user->id}}deleteModal"><i class="fa fa-close"></i> Delete</a>
-                    <div id="{{$user->id}}deleteModal" class="delete-modal modal fade" role="dialog">
+                    <a type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#{{$candidate->id}}deleteModal"><i class="fa fa-close"></i> Delete</a>
+                    <div id="{{$candidate->id}}deleteModal" class="delete-modal modal fade" role="dialog">
                       <!-- Delete Modal -->
                       <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -153,7 +156,7 @@
                             <p>Do you really want to delete these records? This process cannot be undone.</p>
                           </div>
                           <div class="modal-footer">
-                            {!! Form::open(['method' => 'DELETE', 'action' => ['UsersController@destroy', $user->id]]) !!}
+                            {!! Form::open(['method' => 'DELETE', 'action' => ['UsersController@destroy', $candidate->id]]) !!}
                                 {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
                                 {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
@@ -164,14 +167,14 @@
                   </td>
                 </tr>
                 <!-- edit model -->
-                <div id="{{$user->id}}EditModal" class="modal fade" role="dialog">
+                <div id="{{$candidate->id}}EditModal" class="modal fade" role="dialog">
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Edit Student </h4>
                       </div>
-                      {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user->id]]) !!}
+                      {!! Form::model($candidate, ['method' => 'PATCH', 'action' => ['UsersController@update', $candidate->id]]) !!}
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-md-6">
@@ -211,7 +214,7 @@
                               <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                                 {!! Form::label('mobile', 'Mobile No.') !!}
                                 
-                                {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +91-123-456-7890']) !!}
+                                {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +212-123-456-7890']) !!}
                                 <small class="text-danger">{{ $errors->first('mobile') }}</small>
                               </div>
                               <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
