@@ -152,8 +152,8 @@ class ComposerStaticInit89932b49a5dbe813159cc4b13aeb8b28
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -455,6 +455,7 @@ class ComposerStaticInit89932b49a5dbe813159cc4b13aeb8b28
     public static $classMap = array (
         'App\\Answer' => __DIR__ . '/../..' . '/app/Answer.php',
         'App\\Button' => __DIR__ . '/../..' . '/app/Button.php',
+        'App\\Candidate' => __DIR__ . '/../..' . '/app/Candidate.php',
         'App\\Config' => __DIR__ . '/../..' . '/app/Config.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
