@@ -119,6 +119,7 @@
               <th>ville de residence</th>
               <th>lettre de motivation</th>
               <th>commentaires</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
