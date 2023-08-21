@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Candidate;
-use Illuminate\Http\Request;
 
 class CandidateController extends Controller
 {
@@ -14,7 +13,8 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        //
+        $candidates = Candidate::all();
+        return view('candidates.list', ['candidates' => $candidates]);
     }
 
     /**
@@ -35,7 +35,11 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $candidate = Candidate::create($request->all());
+        return response()->json([
+            'message' => 'Candidate created successfully',
+            'data' => $candidate,
+        ]);
     }
 
     /**
@@ -83,3 +87,5 @@ class CandidateController extends Controller
         //
     }
 }
+
+// route
