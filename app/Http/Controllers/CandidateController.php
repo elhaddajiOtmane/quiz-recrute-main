@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Candidate;
 
@@ -14,7 +15,7 @@ class CandidateController extends Controller
     public function index()
     {
         $candidates = Candidate::all();
-        return view('candidates.list', ['candidates' => $candidates]);
+        return view('admin.candidates.indexx', ['candidates' => $candidates]);
     }
 
     /**
