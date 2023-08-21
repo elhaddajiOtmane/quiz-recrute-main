@@ -79,7 +79,7 @@
                   <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                     {!! Form::label('mobile', 'Mobile No.') !!}
                     <span class="required">*</span>
-                    {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +212-123-456-7890', 'required' => 'required']) !!}
+                    {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +91-123-456-7890', 'required' => 'required']) !!}
                     <small class="text-danger">{{ $errors->first('mobile') }}</small>
                   </div>
                   <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
@@ -211,7 +211,7 @@
                               <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                                 {!! Form::label('mobile', 'Mobile No.') !!}
                                 
-                                {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +212-123-456-7890']) !!}
+                                {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +91-123-456-7890']) !!}
                                 <small class="text-danger">{{ $errors->first('mobile') }}</small>
                               </div>
                               <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
