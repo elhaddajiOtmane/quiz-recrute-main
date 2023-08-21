@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CandidateController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/candidates', 'App\Http\Controllers\CandidateController@store');
+// Route::controller for CandidateControllerand for method only post
 
+Route::post('candidate', [CandidateController::class, 'store']);
