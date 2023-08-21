@@ -2,7 +2,7 @@
   'page_header' => 'Students',
   'dash' => '',
   'quiz' => '',
-  'users' => 'active',
+  'Candidate' => 'active',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
@@ -30,7 +30,7 @@
             <p>Do you really want to delete "All these records"? This process cannot be undone.</p>
           </div>
           <div class="modal-footer">
-            {!! Form::open(['method' => 'POST', 'action' => 'DestroyAllController@AllUsersDestroy']) !!}
+            {!! Form::open(['method' => 'POST', 'action' => 'DestroyAllController@AllCandidateDestroy']) !!}
                 {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
                 {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
@@ -46,7 +46,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Add Student</h4>
           </div>
-          {!! Form::open(['method' => 'POST', 'action' => 'UsersController@store']) !!}
+          {!! Form::open(['method' => 'POST', 'action' => 'CandidateController@store']) !!}
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-6">
@@ -121,9 +121,9 @@
             </tr>
           </thead>
           <tbody>
-            @if ($users)
+            @if ($Candidate)
               @php($n = 1)
-              @foreach ($users as $key => $user)
+              @foreach ($Candidate as $key => $user)
                 <tr>
                   <td>
                     {{$n}}
@@ -153,7 +153,7 @@
                             <p>Do you really want to delete these records? This process cannot be undone.</p>
                           </div>
                           <div class="modal-footer">
-                            {!! Form::open(['method' => 'DELETE', 'action' => ['UsersController@destroy', $user->id]]) !!}
+                            {!! Form::open(['method' => 'DELETE', 'action' => ['CandidateController@destroy', $user->id]]) !!}
                                 {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
                                 {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
@@ -171,7 +171,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Edit Student </h4>
                       </div>
-                      {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user->id]]) !!}
+                      {!! Form::model($user, ['method' => 'PATCH', 'action' => ['CandidateController@update', $user->id]]) !!}
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-md-6">
