@@ -1,4 +1,6 @@
 <?php
+// import Broadcast
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
