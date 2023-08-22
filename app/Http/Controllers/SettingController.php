@@ -88,9 +88,19 @@ class SettingController extends Controller
         if ($file = $request->file('logo')) {
 
           $name = 'logo_'.time().$file->getClientOriginalName();
-          unlink(public_path().'/images/logo/'.$setting->logo);
-          $file->move('images/logo/', $name);
+        //   i want to check  unlink(public_path().'/images/logo/'.$setting->logo) if it's exist
+        $filePath = public_path().'/images/logo/'.$setting->logo;
+
+if (file_exists($filePath)) {
+    unlink($filePath);
+    $file->move('images/logo/', $name);
           $input['logo'] = $name;
+} else {
+    $file->move('images/logo/', $name);
+          $input['logo'] = $name;
+}
+
+          
 
         }
 

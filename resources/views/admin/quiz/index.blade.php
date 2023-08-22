@@ -3,12 +3,15 @@
   'dash' => '',
   'quiz' => 'active',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => ''
 ])
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
   <div class="margin-bottom">
     <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Quiz</button>

@@ -3,13 +3,16 @@
   'dash' => '',
   'quiz' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => '',
   'pay' => 'active'
 ])
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
   <div class="content-block box">
     <div class="box-body table-responsive">

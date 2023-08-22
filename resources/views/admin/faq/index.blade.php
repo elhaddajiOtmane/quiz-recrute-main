@@ -3,12 +3,15 @@
   'dash' => '',
   'quiz' => 'active',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => ''
 ])
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
 <div class="box">
     <div class="box-body">

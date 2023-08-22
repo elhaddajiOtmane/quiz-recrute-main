@@ -3,11 +3,15 @@
   'dash' => '',
   'quiz' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => 'active'
 ])
+@php
+$cand = ''; 
+@endphp
 @section('content')
 
   @php

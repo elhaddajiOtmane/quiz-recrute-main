@@ -2,13 +2,16 @@
   'page_header' => "My Report / {$topic->title}",
   'dash' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'answers' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => ''
 ])
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
   <div class="content-block box">
     <div class="box-body table-responsive">

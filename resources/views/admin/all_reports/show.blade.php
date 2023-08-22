@@ -3,6 +3,7 @@
   'dash' => '',
   'quiz' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => 'active',

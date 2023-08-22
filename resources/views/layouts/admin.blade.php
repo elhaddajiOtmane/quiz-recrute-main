@@ -2,6 +2,7 @@
 <html>
 @php
 $setting = App\Setting::first();
+
 @endphp
 <head>
   <meta charset="utf-8">
@@ -104,8 +105,7 @@ $setting = App\Setting::first();
           <!-- Optionally, you can add icons to the links -->
           <li class="{{$dash}}"><a href="{{url('/admin')}}" title="Dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
           <li class="{{$users}}"><a href="{{url('/admin/users')}}" title="Students"><i class="fa fa-users"></i> <span>Students</span></a></li>
-          <li class="{{ isset($cand) ? $cand : '' }}"><a href="{{ url('/admin/candidates') }}" title="Candidates"><i class="fa fa-users"></i> <span>Candidates</span></a></li>
-                
+          <li class="{{$cand}}"><a href="{{ url('/admin/candidates') }}" title="Candidates"><i class="fa fa-users"></i> <span>Candidates</span></a></li>
            <li class="{{$quiz}}"><a href="{{url('admin/topics')}}" title="Quiz"><i class="fa fa-gears"></i> <span>Quiz</span></a></li>          
           <li class="{{$questions}}"><a href="{{url('admin/questions')}}" title="Questions"><i class="fa fa-question-circle-o"></i> <span>Questions</span></a></li>          
           <li class="{{$all_re}}"><a href="{{url('/admin/all_reports')}}" title="Student Report"><i class="fa fa-file-text-o"></i> <span>Student Report</span></a></li>

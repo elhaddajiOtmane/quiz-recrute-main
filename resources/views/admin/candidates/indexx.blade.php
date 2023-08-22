@@ -1,20 +1,23 @@
 @extends('layouts.admin', [
-  'page_header' => 'Students',
+  'page_header' => 'Candidates',
   'dash' => '',
   'quiz' => '',
-  'users' => 'active',
+  'users' => '',
+  'cand' => 'active',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => ''
 ])
-
+@php
+$cand = 'active'; 
+@endphp
 @section('content')
 @include('message')
   @if ($auth->role == 'A')
     <div class="margin-bottom">
       <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Student</button>
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Students</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Candidates</button>
     </div>
     <!-- All Delete Button -->
     <div id="AllDeleteModal" class="delete-modal modal fade" role="dialog">

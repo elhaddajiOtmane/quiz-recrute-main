@@ -8,7 +8,9 @@
     ]); ?>
   </script>
 @endsection
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
   <div class="">
     <div class="container">

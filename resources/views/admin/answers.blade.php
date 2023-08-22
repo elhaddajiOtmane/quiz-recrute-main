@@ -2,6 +2,7 @@
   'page_header' => "All Student's Answers",
   'dash' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'answers' => 'active',
   'top_re' => '',

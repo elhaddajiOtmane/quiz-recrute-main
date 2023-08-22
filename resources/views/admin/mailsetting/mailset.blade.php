@@ -12,13 +12,16 @@
   padding-top:50px;
   margin: auto;
 }
-
+@php
+$cand = ''; 
+@endphp
 </style>
 @extends('layouts.admin', [
   'page_header' => 'Mail Settings',
   'dash' => 'active',
   'quiz' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',

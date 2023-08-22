@@ -3,12 +3,15 @@
   'dash' => 'active',
   'quiz' => '',
   'users' => '',
+  'cand' => '',
   'questions' => '',
   'top_re' => '',
   'all_re' => '',
   'sett' => ''
 ])
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
 <h3>API Setting</h3>
 <div class="dashboard-block col-md-8">

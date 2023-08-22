@@ -8,7 +8,9 @@
   'all_re' => '',
   'sett' => ''
 ])
-
+@php
+$cand = ''; 
+@endphp
 @section('content')
 @include('message')
   @if ($auth->role == 'A')
