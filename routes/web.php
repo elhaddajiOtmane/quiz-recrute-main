@@ -104,6 +104,7 @@ Route::get('/admin/profile', function () {
 // route for candidates list and routes for candidate take quiz
 Route::get('/admin/candidates', 'CandidateController@index')->name('candidates.index');
 Route::get('/admin/candidates/{id}', 'CandidateController@show')->name('candidates.show');
+Route::post('/all-candidates-destroy', 'DestroyAllController@AllCandidatesDestroy')->name('all.candidates.destroy');
 Route::get('/admin/candidates/{id}/quiz', 'CandidateController@quiz')->name('candidates.quiz');
 Route::post('/admin/candidates/{id}/quiz', 'CandidateController@quizStore')->name('candidates.quizStore');
 Route::get('/admin/candidates/{id}/result', 'CandidateController@result')->name('candidates.result');
