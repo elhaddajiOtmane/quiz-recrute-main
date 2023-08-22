@@ -221,7 +221,7 @@ Route::post('admin/google', 'ApiController@updateGoogleKey')->name('key.google')
 
 Route::post('admin/gitlab', 'ApiController@updategitlabKey')->name('key.gitlab');
 
-Route::delete('admin/ans/{id}', 'Anscontroller@destroy')->name('ans.del');
+// Route::delete('admin/ans/{id}', [Anscontroller::class, 'destroy'])->name('ans.destroy');
 
 Route::get('/admin/payment', 'PaymentController@index')->name('admin.payment');
 

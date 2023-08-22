@@ -16,7 +16,7 @@ $cand = 'active';
 @include('message')
   @if ($auth->role == 'A')
     <div class="margin-bottom">
-      <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Student</button>
+      <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Candidates</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Candidates</button>
     </div>
     <!-- All Delete Button -->
@@ -41,22 +41,25 @@ $cand = 'active';
         </div>
       </div>
     </div>
-    <!-- Create Modal -->
+    <!-- Create  Candidate -->
     <div id="createModal" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Student</h4>
+            <h4 class="modal-title">Add Candidate</h4>
           </div>
           {!! Form::open(['method' => 'POST', 'action' => 'UsersController@store']) !!}
             <div class="modal-body">
               <div class="row">
+                
+                {{-- add first name --}}
+
                 <div class="col-md-6">
-                  <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    {!! Form::label('name', 'Student Name') !!}
+                  <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                    {!! Form::label('first_name', 'First Name') !!}
                     <span class="required">*</span>
-                    {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Enter Your Name']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Enter Your First Name']) !!}
                     <small class="text-danger">{{ $errors->first('name') }}</small>
                   </div>
                   <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -74,7 +77,35 @@ $cand = 'active';
                   <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                       {!! Form::label('role', 'User Role') !!}
                       <span class="required">*</span>
-                      {!! Form::select('role', ['S' => 'Student', 'A'=>'Administrator'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+                      {!! Form::select('role', ['C' => 'Candidate'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+                      <small class="text-danger">{{ $errors->first('role') }}</small>
+                  </div>
+                </div>
+                {{-- add last name --}}
+
+                <div class="col-md-6">
+                  <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                    {!! Form::label('last_name', 'Last Name') !!}
+                    <span class="required">*</span>
+                    {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Enter Your Last Name']) !!}
+                    <small class="text-danger">{{ $errors->first('name') }}</small>
+                  </div>
+                  <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    {!! Form::label('email', 'Email address') !!}
+                    <span class="required">*</span>
+                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'eg: info@examlpe.com', 'required' => 'required']) !!}
+                    <small class="text-danger">{{ $errors->first('email') }}</small>
+                  </div>
+                  <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    {!! Form::label('password', 'Password') !!}
+                    <span class="required">*</span>
+                    {!! Form::password('password', ['class' => 'form-control', 'placeholder'=>'Enter Your Password', 'required' => 'required']) !!}
+                    <small class="text-danger">{{ $errors->first('password') }}</small>
+                  </div>
+                  <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+                      {!! Form::label('role', 'User Role') !!}
+                      <span class="required">*</span>
+                      {!! Form::select('role', ['C' => 'Candidate'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
                       <small class="text-danger">{{ $errors->first('role') }}</small>
                   </div>
                 </div>
@@ -114,7 +145,7 @@ $cand = 'active';
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
+              <th>First name</th>
               <th>last name</th>
               <th>date de naissance</th>
               <th>poste que vous souhaitez</th>
@@ -134,14 +165,14 @@ $cand = 'active';
                     {{$n}}
                     @php($n++)
                   </td>
-                  <td>{{$candidate->Nom}}</td>
-                  <td>{{$candidate->prenom}}</td>
-                  <td>{{$candidate->date_de_naissance}}</td>
-                  <td>{{$candidate->poste_que_vous_souhaitez}}</td>
+                  <td>{{$candidate->first_name}}</td>
+                  <td>{{$candidate->last_name}}</td>
+                  <td>{{$candidate->date_of_birth}}</td>
+                  <td>{{$candidate->desired_position}}</td>
                   <td>{{$candidate->CV}}</td>
-                  <td>{{$candidate->ville_de_residence}}</td>
-                  <td>{{$candidate->lettre_de_motivation}}</td>
-                  <td>{{$candidate->commentaires}}</td>
+                  <td>{{$candidate->city}}</td>
+                  <td>{{$candidate->cover_letter}}</td>
+                  <td>{{$candidate->comments}}</td>
                   <td>
                     <!-- Edit Button -->
                     <a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#{{$candidate->id}}EditModal"><i class="fa fa-edit"></i> Edit</a>
@@ -210,7 +241,7 @@ $cand = 'active';
                               <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                                   {!! Form::label('role', 'User Role') !!}
                                   
-                                  {!! Form::select('role', ['S' => 'Student', 'A'=>'Administrator'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+                                  {!! Form::select('role', ['C' => 'Candidate'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
                                   <small class="text-danger">{{ $errors->first('role') }}</small>
                               </div>
                             </div>

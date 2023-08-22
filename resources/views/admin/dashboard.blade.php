@@ -31,6 +31,19 @@ $cand = '';
                 More info <i class="fa fa-arrow-circle-right"></i>
               </a>
             </div>
+          </div> <div class="col-md-6">
+            <div class="small-box bg-blue">
+              <div class="inner">
+                <h3>{{0}}</h3>
+                <p>Total Candidates</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="{{url('/admin/candidates')}}" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+              </a>
+            </div>
           </div>
           <div class="col-md-6">
             <div class="small-box bg-red">

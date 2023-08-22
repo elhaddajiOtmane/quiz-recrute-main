@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
-use App\Candidate;
+
+use App\User;
 
 class CandidateController extends Controller
 {
@@ -14,7 +15,7 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        $candidates = Candidate::all();
+        $candidates = User::where('role', '=', 'C')->get();
         return view('admin.candidates.indexx', ['candidates' => $candidates]);
     }
 
@@ -34,14 +35,38 @@ class CandidateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $candidate = Candidate::create($request->all());
-        return response()->json([
-            'message' => 'Candidate created successfully',
-            'data' => $candidate,
-        ]);
-    }
+ 
+     public function store(Request $request)
+     {
+       // $input = $request->all();
+   
+       $name = $request['first_name'] . ' ' . $request['last_name'];
+       $user = User::create([
+         'first_name' => $request['first_name'],
+         'last_name' => $request['last_name'],
+         'date_of_birth' => $request['date_of_birth'],
+         'desired_position' => $request['desired_position'],
+         'CV' => $request['CV'],
+         'city' => $request['city'],
+         'cover_letter' => $request['cover_letter'],
+         'comments' => $request['comments'],
+         'name' => $name,
+         'email' => $request['email'],
+         'role' => 'C',
+         'password' => bcrypt($request['password']),
+         'mobile' => $request['mobile'],
+       ]);
+
+   
+       // Check if user was created successfully
+       if ($user) {
+         // Return a JSON response indicating success and the new user's data
+         return response()->json(['message' => 'User has been added', 'user' => $user], 201);
+       } else {
+         // Handle the case where user creation failed
+         return response()->json(['message' => 'User creation failed'], 500);
+       }
+     }
 
     /**
      * Display the specified resource.
@@ -49,7 +74,7 @@ class CandidateController extends Controller
      * @param  \App\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function show(Candidate $candidate)
+    public function show(User $User)
     {
         //
     }
@@ -60,7 +85,7 @@ class CandidateController extends Controller
      * @param  \App\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Candidate $candidate)
+    public function edit(User $User)
     {
         //
     }
@@ -69,10 +94,10 @@ class CandidateController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Candidate  $candidate
+     * @param  \App\Candidate  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Candidate $candidate)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -83,7 +108,7 @@ class CandidateController extends Controller
      * @param  \App\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Candidate $candidate)
+    public function destroy(User $user)
     {
         //
     }

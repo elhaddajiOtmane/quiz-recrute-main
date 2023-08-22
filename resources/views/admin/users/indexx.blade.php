@@ -73,7 +73,7 @@ $cand = '';
                   <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                       {!! Form::label('role', 'User Role') !!}
                       <span class="required">*</span>
-                      {!! Form::select('role', ['S' => 'Student', 'A'=>'Administrator'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+                      {!! Form::select('role', ['S' => 'Student', 'A'=>'Administrator','C' => 'Candidate'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
                       <small class="text-danger">{{ $errors->first('role') }}</small>
                   </div>
                 </div>
