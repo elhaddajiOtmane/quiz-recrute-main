@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `answers`
 --
 
-CREATE TABLE `answers` (
+CREATE TABLE IF NOT EXIST `answers` (
   `id` int(10) UNSIGNED NOT NULL,
   `topic_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `answers` (
 -- Table structure for table `configs`
 --
 
-CREATE TABLE `configs` (
+CREATE TABLE IF NOT EXIST `configs` (
   `id` int(10) UNSIGNED NOT NULL,
   `MAIL_FROM_NAME` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `MAIL_DRIVER` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `configs` (
 -- Table structure for table `copyrighttexts`
 --
 
-CREATE TABLE `copyrighttexts` (
+CREATE TABLE IF NOT EXIST `copyrighttexts` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -85,7 +85,7 @@ INSERT INTO `copyrighttexts` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `faq`
 --
 
-CREATE TABLE `faq` (
+CREATE TABLE IF NOT EXIST `faq` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `details` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE `faq` (
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
+CREATE TABLE IF NOT EXIST `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
@@ -132,7 +132,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `pages`
 --
 
-CREATE TABLE `pages` (
+CREATE TABLE IF NOT EXIST `pages` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -154,7 +154,7 @@ INSERT INTO `pages` (`id`, `name`, `details`, `slug`, `status`) VALUES
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+CREATE TABLE IF NOT EXIST `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
@@ -166,7 +166,7 @@ CREATE TABLE `password_resets` (
 -- Table structure for table `questions`
 --
 
-CREATE TABLE `questions` (
+CREATE TABLE IF NOT EXIST `questions` (
   `id` int(10) UNSIGNED NOT NULL,
   `topic_id` int(10) UNSIGNED NOT NULL,
   `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE `questions` (
 -- Table structure for table `sessions`
 --
 
-CREATE TABLE `sessions` (
+CREATE TABLE IF NOT EXIST `sessions` (
   `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(10) UNSIGNED DEFAULT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -204,7 +204,7 @@ CREATE TABLE `sessions` (
 -- Table structure for table `settings`
 --
 
-CREATE TABLE `settings` (
+CREATE TABLE IF NOT EXIST `settings` (
   `id` int(10) UNSIGNED NOT NULL,
   `logo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `favicon` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -235,7 +235,7 @@ INSERT INTO `settings` (`id`, `logo`, `favicon`, `welcome_txt`, `userquiz`, `w_e
 -- Table structure for table `social_icons`
 --
 
-CREATE TABLE `social_icons` (
+CREATE TABLE IF NOT EXIST `social_icons` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -249,7 +249,7 @@ CREATE TABLE `social_icons` (
 -- Table structure for table `tests`
 --
 
-CREATE TABLE `tests` (
+CREATE TABLE IF NOT EXIST `tests` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -265,7 +265,7 @@ CREATE TABLE `tests` (
 -- Table structure for table `topics`
 --
 
-CREATE TABLE `topics` (
+CREATE TABLE IF NOT EXIST `topics` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
@@ -283,7 +283,7 @@ CREATE TABLE `topics` (
 -- Table structure for table `topic_user`
 --
 
-CREATE TABLE `topic_user` (
+CREATE TABLE IF NOT EXIST `topic_user` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `topic_id` int(10) UNSIGNED NOT NULL,
@@ -300,7 +300,7 @@ CREATE TABLE `topic_user` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXIST `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
