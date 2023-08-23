@@ -114,7 +114,7 @@ Route::get('/admin/my_reports', 'MyReportsController@index')->name('my_report');
 Route::get('/admin/my_reports/{my_reports}', 'MyReportsController@show')->name('my_report_show');
 
 // turn candidate to student
-Route::post('/update-candidate', 'CandidateController@updateCandidate')->name('update.candidate');
+Route::post('/admin/candidate/update', 'CandidateController@updateCandidate')->name('candidate.update');
 
 
 
@@ -236,3 +236,7 @@ Route::post('payment/paypal_post', 'PaypalController@paypal_post')->name('paypal
 // Handle status
 Route::get('payment/paypal_success', 'PaypalController@paypal_success')->name('paypal_success');
 Route::get('payment/paypal_cancel', 'PaypalController@paypal_cancel')->name('paypal_cancel');
+
+
+// emails quiz.blade route for send list of quiz to emails 
+Route::get('/admin/emails', 'EmailController@index')->name('emails.index');

@@ -18,7 +18,7 @@ $cand = 'active';
     <div class="margin-bottom">
       <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Candidates</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Candidates</button>
-      <button type="button" class="btn btn-primary" id="turnToStudentButton">Turn to Student</button>
+      <button type="button" class="btn btn-primary" id="turnToStudentButton" onclick="turntostudent()">Turn to Student</button>
  
     </div>
     <!-- All Delete Button -->
@@ -147,7 +147,7 @@ $cand = 'active';
           <thead>
             <tr>
               <th>#</th>
-              {{-- <th><input type="checkbox" id="select-all"></th> --}}
+              <th><input type="checkbox" id="select-all"></th>
               <th>First name</th>
               <th>last name</th>
               <th>date de naissance</th>
@@ -169,7 +169,7 @@ $cand = 'active';
                     @php($n++)
                   </td>
                   <td><input type="checkbox" class="candidate-checkbox" value="{{$candidate->id}}"></td>
-                  {{-- <td>{{$candidate->first_name}}</td> --}}
+                  <td>{{$candidate->first_name}}</td>
                   <td>{{$candidate->last_name}}</td>
                   <td>{{$candidate->date_of_birth}}</td>
                   <td>{{$candidate->desired_position}}</td>
@@ -178,12 +178,12 @@ $cand = 'active';
                   <td>{{$candidate->cover_letter}}</td>
                   <td>{{$candidate->comments}}</td>
                   <td>
-                    <!-- Edit Button -->
+                  
                     <a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#{{$candidate->id}}EditModal"><i class="fa fa-edit"></i> Edit</a>
-                    <!-- Delete Button -->
+                   
                     <a type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#{{$candidate->id}}deleteModal"><i class="fa fa-close"></i> Delete</a>
                     <div id="{{$candidate->id}}deleteModal" class="delete-modal modal fade" role="dialog">
-                      <!-- Delete Modal -->
+                
                       <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -320,59 +320,28 @@ $cand = 'active';
   });
 
   // =================== Turn to Student ===================
-  $('#turnToStudentButton').click(function () {
-      var ids = [];
-      $('.candidate-checkbox:checked').each(function () {
-          ids.push($(this).attr('data-id'));
-      });
-
-      if (ids.length > 0) {
-          $.ajax({
-              url: '{{ route('update.candidate') }}',
-              method: 'POST',
-              data: {
-                  ids: ids,
-                  _token: '{{ csrf_token() }}'
-              },
-              success: function (response) {
-                  location.reload();
-              }
-          });
+  function turntostudent() {
+    var ids = [];
+    $('.candidate-checkbox:checked').each(function(){
+      ids.push($(this).val());
+    });
+    console.log(ids);
+    if (ids.length == 0) {
+      alert('Please select at least one candidate.');
+    } else {
+      if (confirm('Are you sure to turn these candidates to students?')) {
+        $.ajax({
+          url: "{{url('admin/candidate/update')}}",
+          method: "POST",
+          data: {ids:ids, _token: "{{csrf_token()}}"},
+          success: function (data) {
+            location.reload();
+          }
+        });
       }
-  });
+    }
+  }
 
-
-  // =================== Delete All ===================
-
-    // $(document).ready(function () {
-    //     // Handle the "Turn to Student" button click
-    //     $('#turnToStudentButton').click(function () {
-    //         // Get the selected candidates' IDs (you may need to implement this part)
-    //         var selectedCandidates = getSelectedCandidates(); // Implement this function
-
-    //         if (selectedCandidates.length === 0) {
-    //             // No candidates selected, show an error message or alert
-    //             alert("Please select candidates to turn into students.");
-    //             return;
-    //         }
-
-    //         // Send an AJAX request to update the candidates
-    //         $.ajax({
-    //             type: 'POST',
-    //             url: '/your-controller-route', // Replace with your controller route
-    //             data: { candidates: selectedCandidates },
-    //             success: function (response) {
-    //                 // Handle the success response here
-    //                 // You can close the modal, update the UI, or perform other actions
-    //                 alert(response.message); // Display a success message
-    //             },
-    //             error: function (error) {
-    //                 // Handle any errors here
-    //                 console.error(error);
-    //             }
-    //         });
-    //     });
-    // });
 
 
   

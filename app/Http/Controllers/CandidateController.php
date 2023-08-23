@@ -114,16 +114,17 @@ class CandidateController extends Controller
     // Function To Update Candidate  celected list to Students usign foreach loop
     public function updateCandidate(Request $request)
     {
-        $candidates = $request->input('candidates');
-        foreach ($candidates as $candidate) {
-            $user = User::find($candidate);
-            $user->role = 'S';
-            $user->save();
-        }
-        return redirect()->route('candidates.index')->with('success', 'Candidates Selected Successfully');
+      // turn candidate to student from that reqest function turntostudent() {
+      $ids = $request->ids;
+      foreach ($ids as $id) {
+        $user = User::findOrFail($id);
+        $user->role = 'S';
+        $user->save();
+      }
+      return response()->json(['success' => "Candidates turned to students successfully."]);
     }
+      
+
 
 
 }
-
-// route
