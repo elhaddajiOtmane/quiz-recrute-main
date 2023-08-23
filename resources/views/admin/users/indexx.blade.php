@@ -113,7 +113,8 @@ $cand = '';
           <thead>
             <tr>
               <th>#</th>
-              <th>Student Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Email</th>
               <th>Mobile No.</th>
               <th>City</th>
@@ -131,7 +132,8 @@ $cand = '';
                     {{$n}}
                     @php($n++)
                   </td>
-                  <td>{{$user->name}}</td>
+                  <td>{{$user->first_name}}</td>
+                  <td>{{$user->last_name}}</td>
                   <td>{{$user->email}}</td>
                   <td>{{$user->mobile}}</td>
                   <td>{{$user->city}}</td>
