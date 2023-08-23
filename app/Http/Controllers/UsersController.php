@@ -158,6 +158,12 @@ class UsersController extends Controller
 
 
   // ================================================candidate methods===================================================
-
+  // destroycand
+  public function destroycand($id)
+  {
+    $user = User::findOrFail($id);
+    $user->delete();
+    return back()->with('deleted', 'User has been deleted');
+  }
 
 }

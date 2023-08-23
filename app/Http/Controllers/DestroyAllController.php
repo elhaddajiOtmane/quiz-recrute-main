@@ -19,5 +19,19 @@ class DestroyAllController extends Controller
       Answer::truncate();
       return back()->with('deleted', 'All Answer Sheets Has Been Deleted');
     }
+    public function AllCandidatesDestroy()
+{
+    // Find all users with role 'c'
+    $usersWithRoleC = User::where('role', 'c')->get();
+
+    // Loop through and delete each user
+    foreach ($usersWithRoleC as $user) {
+        $user->delete();
+    }
+
+    // Redirect back with a message
+    return back()->with('deleted', 'All users with role "c" have been deleted');
+}
+
 
 }

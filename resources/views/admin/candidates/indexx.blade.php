@@ -18,6 +18,7 @@ $cand = 'active';
     <div class="margin-bottom">
       <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Candidates</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Candidates</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TurnToStudentModal">Turn to Student</button>
     </div>
     <!-- All Delete Button -->
     <div id="AllDeleteModal" class="delete-modal modal fade" role="dialog">
@@ -33,10 +34,13 @@ $cand = 'active';
             <p>Do you really want to delete "All these records"? This process cannot be undone.</p>
           </div>
           <div class="modal-footer">
-            {!! Form::open(['method' => 'POST', 'action' => 'DestroyAllController@AllUsersDestroy']) !!}
-                {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
-                {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
-            {!! Form::close() !!}
+            
+              {!! Form::open(['method' => 'POST', 'route' => 'all.candidates.destroy']) !!}
+                  {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
+                  {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
+              {!! Form::close() !!}
+         
+          
           </div>
         </div>
       </div>
@@ -145,6 +149,7 @@ $cand = 'active';
           <thead>
             <tr>
               <th>#</th>
+              <th><input type="checkbox" id="select-all"></th>
               <th>First name</th>
               <th>last name</th>
               <th>date de naissance</th>
@@ -165,6 +170,7 @@ $cand = 'active';
                     {{$n}}
                     @php($n++)
                   </td>
+                  <td><input type="checkbox" class="candidate-checkbox" value="{{$candidate->id}}"></td>
                   <td>{{$candidate->first_name}}</td>
                   <td>{{$candidate->last_name}}</td>
                   <td>{{$candidate->date_of_birth}}</td>
@@ -295,5 +301,29 @@ $cand = 'active';
     $('#pass').hide();
   });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle "Select All" checkbox
+        $('#select-all').change(function () {
+            if ($(this).is(':checked')) {
+                $('.candidate-checkbox').prop('checked', true);
+            } else {
+                $('.candidate-checkbox').prop('checked', false);
+            }
+        });
+
+        // Handle individual candidate checkboxes
+        $('.candidate-checkbox').change(function () {
+            if ($('.candidate-checkbox:checked').length === $('.candidate-checkbox').length) {
+                $('#select-all').prop('checked', true);
+            } else {
+                $('#select-all').prop('checked', false);
+            }
+        });
+    });
+</script>
+
 
 @endsection
