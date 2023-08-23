@@ -34,7 +34,7 @@ $cand = '';
           </div> <div class="col-md-6">
             <div class="small-box bg-blue">
               <div class="inner">
-                <h3>{{0}}</h3>
+                <h3>{{$Candidate}}</h3>
                 <p>Total Candidates</p>
               </div>
               <div class="icon">

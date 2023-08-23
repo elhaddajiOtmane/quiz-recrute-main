@@ -17,7 +17,7 @@ $cand = '';
     <div class="margin-bottom">
       <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Student</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Students</button>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AllDeleteModal">Send Eamil</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" onclick="QuizReminder()">Send Eamil</button>
     </div>
     <!-- All Delete Button -->
     <div id="AllDeleteModal" class="delete-modal modal fade" role="dialog">
@@ -278,6 +278,11 @@ $cand = '';
   @endif
 @endsection
 @section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
+
+
+
+"></script>
 
 
 <script>
@@ -302,9 +307,46 @@ $cand = '';
           });
       }
     });
+
+    //  QuizReminder() to send emails of checked users to routes email user controller function quizreminder
+    function QuizReminder() {
+  var users = [];
+  $('.checkbox:checked').each(function () {
+    // Instead of pushing the data-id attribute, push the email address
+    var email = $(this).closest('tr').find('td:nth-child(5)').text();
+    users.push(email);
+  });
+
+  console.log(users);
+
+  if (users.length > 0) {
+    $.ajax({
+  url: "http://127.0.0.1:8000/api/email",
+  method: "POST",
+  data: { emails: JSON.stringify(users) },
+})
+.done(function (data) {
+  if (data == 'success') {
+    toastr.success("Emails sent successfully", "Success");
+  } else {
+    toastr.error("Emails not sent", "Error");
+  }
+})
+.fail(function (jqXHR, textStatus, errorThrown) {
+  console.error("Ajax request failed: " + textStatus, errorThrown);
+});
+  } else {
+    toastr.error("Please select at least one user", "Error");
+  }
+}
+
     
 
 </script>
 
 
 @endsection
+
+
+git remote add bitbucket https://elhaddajiotmane@bitbucket.org/elhaddajiotmane/recrutement-devconnect.git
+git remote add origin 

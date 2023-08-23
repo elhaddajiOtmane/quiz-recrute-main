@@ -67,12 +67,13 @@ Route::group(['middleware' => 'isadmin'], function () {
 
   Route::get('/admin', function () {
 
-    $user = User::where('role', '!=', 'A')->count();
+    $user = User::where('role', '=', 'S')->count();
+    $Candidate = User::where('role', '=', 'C')->count();
     $question = Question::count();
     $quiz = Topic::count();
     $user_latest = User::where('id', '!=', Auth::id())->orderBy('created_at', 'desc')->get();
 
-    return view('admin.dashboard', compact('user', 'question', 'quiz', 'user_latest'));
+    return view('admin.dashboard', compact('user','Candidate', 'question', 'quiz', 'user_latest'));
     //remove the answer line comment
     // return view('admin.dashboard', compact('user', 'question', 'answer', 'quiz', 'user_latest'));
 
@@ -239,4 +240,4 @@ Route::get('payment/paypal_cancel', 'PaypalController@paypal_cancel')->name('pay
 
 
 // emails quiz.blade route for send list of quiz to emails 
-Route::get('/admin/emails', 'EmailController@index')->name('emails.index');
+// Route::get('/admin/emails', 'EmailController@index')->name('emails.index');

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\QuizReminder;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,27 @@ class UsersController extends Controller
   {
     $users = User::where('role', '=', 'S')->get();
     return view('admin.users.indexx', compact('users'));
+  }
+
+  // =================function send email to students=============
+  
+  public function sendEmail(Request $request)
+  {
+    $request->validate([
+      'email' => 'required|email',
+      'subject' => 'required',
+      'message' => 'required',
+    ]);
+
+    $data = array(
+      'email' => $request->email,
+      'subject' => $request->subject,
+      'message' => $request->message,
+    );
+
+    Mail::to($data['email'])->send(new QuizReminder($data));
+
+    return back()->with('success', 'Thanks for contacting us!');
   }
 
   /**

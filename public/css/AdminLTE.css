@@ -5205,7 +5205,7 @@ body.sidebar-collapse.skin-black .sidebar-menu > li.active > a {
   border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 img.ad-logo {
-  width: 25%;
+  width: 30%;
 }
 span.required {
   color: #FF0000;
@@ -5214,4 +5214,12 @@ span.required {
   font-size: 12px;
   color: #666;
   line-height: 1;
+}
+
+@media (min-width: 768px) and (max-width: 991px){
+
+
+.hidden-sm {
+    display: block!important;
+}
 }
