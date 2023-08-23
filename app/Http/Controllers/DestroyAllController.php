@@ -10,7 +10,7 @@ class DestroyAllController extends Controller
 {
     public function AllUsersDestroy()
     {
-      User::where('role', '!=', 'A')->getQuery()->delete();
+      User::where('role', '=', 'S')->getQuery()->delete();
       // User::where('role', '!=', 'A')->truncate();
       return back()->with('deleted', 'All Student Has Been Deleted');
     }
