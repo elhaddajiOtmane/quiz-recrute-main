@@ -35,10 +35,10 @@ $cand = 'active';
             <p>Do you really want to delete "All these records"? This process cannot be undone.</p>
           </div>
           <div class="modal-footer">
-            {!! Form::open(['method' => 'POST', 'action' => 'DestroyAllController@AllUsersDestroy']) !!}
-                {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
-                {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
-            {!! Form::close() !!}
+            {!! Form::open(['method' => 'POST', 'route' => 'all.candidates.destroy']) !!}
+                  {!! Form::reset("No", ['class' => 'btn btn-gray', 'data-dismiss' => 'modal']) !!}
+                  {!! Form::submit("Yes", ['class' => 'btn btn-danger']) !!}
+              {!! Form::close() !!}
           </div>
         </div>
       </div>
