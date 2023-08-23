@@ -43,70 +43,95 @@ $cand = '';
     <!-- Create Modal -->
     <div id="createModal" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Student</h4>
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add Student</h4>
+              </div>
+              {!! Form::open(['method' => 'POST', 'action' => 'UsersController@store']) !!}
+              <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                          {!! Form::label('first_name', 'First Name') !!}
+                          <span class="required">*</span>
+                          {!! Form::text('first_name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Enter First Name']) !!}
+                          <small class="text-danger">{{ $errors->first('first_name') }}</small>
+                      </div>
+                  </div>
+                  
+                      <div class="col-md-6">
+                          <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                              {!! Form::label('last_name', 'Last Name') !!}
+                              <span class="required">*</span>
+                              {!! Form::text('last_name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Enter Last Name']) !!}
+                              <small class="text-danger">{{ $errors->first('last_name') }}</small>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                              {!! Form::label('email', 'Email address') !!}
+                              <span class="required">*</span>
+                              {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'eg: info@example.com', 'required' => 'required']) !!}
+                              <small class="text-danger">{{ $errors->first('email') }}</small>
+                          </div>  
+                     </div>
+
+<div class="col-md-6">
+  <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
+      {!! Form::label('mobile', 'Mobile No.') !!}
+      <span class="required">*</span>
+      {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +212-123-456-7890', 'required' => 'required']) !!}
+      <small class="text-danger">{{ $errors->first('mobile') }}</small>
+  </div>
+</div>
+
+  <div class="col-md-6">
+  <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+      {!! Form::label('city', 'City') !!}
+      {!! Form::text('city', null, ['class' => 'form-control', 'placeholder' => 'Enter Your City']) !!}
+      <small class="text-danger">{{ $errors->first('city') }}</small>
+  </div>
+</div>
+  
+<div class="col-md-6">
+  <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+    {!! Form::label('role', 'User Role') !!}
+    <span class="required">*</span>
+    {!! Form::select('role', ['S' => 'Student', 'A'=>'Administrator','C' => 'Candidate'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+    <small class="text-danger">{{ $errors->first('role') }}</small>
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+      {!! Form::label('address', 'Address') !!}
+      {!! Form::textarea('address', null, ['class' => 'form-control', 'rows'=>'5', 'placeholder' => 'Enter Your Address']) !!}
+      <small class="text-danger">{{ $errors->first('address') }}</small>
+  </div></div>
+  <div class="col-md-6">
+  <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+    {!! Form::label('password', 'Password') !!}
+    <span class="required">*</span>
+    {!! Form::password('password', ['class' => 'form-control', 'placeholder'=>'Enter Your Password', 'required' => 'required']) !!}
+    <small class="text-danger">{{ $errors->first('password') }}</small>
+  </div></div>
+
+<!-- ... (remaining code) ... -->
+
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <div class="btn-group pull-right">
+                      {!! Form::reset("Reset", ['class' => 'btn btn-default']) !!}
+                      {!! Form::submit("Add", ['class' => 'btn btn-wave']) !!}
+                  </div>
+              </div>
+              {!! Form::close() !!}
           </div>
-          {!! Form::open(['method' => 'POST', 'action' => 'UsersController@store']) !!}
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    {!! Form::label('name', 'Student Name') !!}
-                    <span class="required">*</span>
-                    {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Enter Your Name']) !!}
-                    <small class="text-danger">{{ $errors->first('name') }}</small>
-                  </div>
-                  <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    {!! Form::label('email', 'Email address') !!}
-                    <span class="required">*</span>
-                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'eg: info@examlpe.com', 'required' => 'required']) !!}
-                    <small class="text-danger">{{ $errors->first('email') }}</small>
-                  </div>
-                  <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    {!! Form::label('password', 'Password') !!}
-                    <span class="required">*</span>
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder'=>'Enter Your Password', 'required' => 'required']) !!}
-                    <small class="text-danger">{{ $errors->first('password') }}</small>
-                  </div>
-                  <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                      {!! Form::label('role', 'User Role') !!}
-                      <span class="required">*</span>
-                      {!! Form::select('role', ['S' => 'Student', 'A'=>'Administrator','C' => 'Candidate'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
-                      <small class="text-danger">{{ $errors->first('role') }}</small>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
-                    {!! Form::label('mobile', 'Mobile No.') !!}
-                    <span class="required">*</span>
-                    {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg: +212-123-456-7890', 'required' => 'required']) !!}
-                    <small class="text-danger">{{ $errors->first('mobile') }}</small>
-                  </div>
-                  <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-                    {!! Form::label('city', 'Enter City') !!}
-                    {!! Form::text('city', null, ['class' => 'form-control', 'placeholder'=>'Enter Your City']) !!}
-                    <small class="text-danger">{{ $errors->first('city') }}</small>
-                  </div>
-                  <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                    {!! Form::label('address', 'Address') !!}
-                    {!! Form::textarea('address', null, ['class' => 'form-control', 'rows'=>'5', 'placeholder' => 'Enter Your address']) !!}
-                    <small class="text-danger">{{ $errors->first('address') }}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="btn-group pull-right">
-                {!! Form::reset("Reset", ['class' => 'btn btn-default']) !!}
-                {!! Form::submit("Add", ['class' => 'btn btn-wave']) !!}
-              </div>
-            </div>
-          {!! Form::close() !!}
-        </div>
       </div>
-    </div>
+  </div>
+  
     <div class="content-block box">
       <div class="box-body table-responsive">
         <table id="example1" class="table table-striped">
