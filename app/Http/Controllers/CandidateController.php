@@ -50,7 +50,6 @@ class CandidateController extends Controller
          'city' => $request['city'],
          'cover_letter' => $request['cover_letter'],
          'comments' => $request['comments'],
-         'name' => $name,
          'email' => $request['email'],
          'role' => 'C',
          'password' => bcrypt($request['password']),
@@ -112,6 +111,19 @@ class CandidateController extends Controller
     {
         //
     }
+    // Function To Update Candidate  celected list to Students usign foreach loop
+    public function updateCandidate(Request $request)
+    {
+        $candidates = $request->input('candidates');
+        foreach ($candidates as $candidate) {
+            $user = User::find($candidate);
+            $user->role = 'S';
+            $user->save();
+        }
+        return redirect()->route('candidates.index')->with('success', 'Candidates Selected Successfully');
+    }
+
+
 }
 
 // route
