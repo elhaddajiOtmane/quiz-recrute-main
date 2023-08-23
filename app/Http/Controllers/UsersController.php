@@ -40,7 +40,8 @@ class UsersController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'name' => 'required|string|max:255',
+      'first_name' => 'required|string|max:255',
+      'last_name' => 'required|string|max:255',
       'email' => 'required|string|email|max:255|unique:users',
       'mobile' => 'unique:users',
       'password' => 'required|string|min:6',
@@ -49,7 +50,8 @@ class UsersController extends Controller
     $input = $request->all();
 
     User::create([
-      'name' => $input['name'],
+      'first_name' => $input['first_name'],
+      'last_name' => $input['last_name'],
       'email' => $input['email'],
       'password' => bcrypt($input['password']),
       'mobile' => $input['mobile'],
@@ -100,10 +102,11 @@ class UsersController extends Controller
     $user = User::findOrFail($id);
 
     $request->validate([
-      'name' => 'required|string|max:255',
-      'email' => 'required|string|email',
-      'password' => 'required|string|min:6',
+      'first_name' => 'required|string|max:255',
+      'last_name' => 'required|string|max:255',
+      'email' => 'required|string|email|max:255|unique:users',
       'mobile' => 'unique:users',
+      'password' => 'required|string|min:6',
     ]);
 
     $input = $request->all();
@@ -119,7 +122,8 @@ class UsersController extends Controller
 
     if (Auth::user()->role == 'A') {
       $user->update([
-        'name' => $input['name'],
+        'first_name' => $input['first_name'],
+        'last_name' => $input['last_name'],
         'email' => $input['email'],
         'password' => bcrypt($input['password']),
         'mobile' => $input['mobile'],
@@ -129,7 +133,8 @@ class UsersController extends Controller
       ]);
     } else if (Auth::user()->role == 'S') {
       $user->update([
-        'name' => $input['name'],
+        'first_name' => $input['first_name'],
+        'last_name' => $input['last_name'],
         'email' => $input['email'],
         'password' => bcrypt($input['password']),
         'mobile' => $input['mobile'],
