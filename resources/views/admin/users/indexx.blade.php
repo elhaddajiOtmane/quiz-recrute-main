@@ -17,6 +17,7 @@ $cand = '';
     <div class="margin-bottom">
       <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Student</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Students</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AllDeleteModal">Send Eamil</button>
     </div>
     <!-- All Delete Button -->
     <div id="AllDeleteModal" class="delete-modal modal fade" role="dialog">
@@ -138,6 +139,7 @@ $cand = '';
           <thead>
             <tr>
               <th>#</th>
+              <th><input type="checkbox" id="select-all"></th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
@@ -157,6 +159,7 @@ $cand = '';
                     {{$n}}
                     @php($n++)
                   </td>
+                  <td><input type="checkbox" class="checkbox" data-id="{{$user->id}}"></td>
                   <td>{{$user->first_name}}</td>
                   <td>{{$user->last_name}}</td>
                   <td>{{$user->email}}</td>
@@ -285,6 +288,23 @@ $cand = '';
   $('#ch2').click(function(){
     $('#pass').hide();
   });
+
+   // Script for handel selection all item in table
+    $('#select-all').click(function(event) {   
+      if(this.checked) {
+          // Iterate each checkbox
+          $(':checkbox').each(function() {
+              this.checked = true;                        
+          });
+      } else {
+        $(':checkbox').each(function() {
+              this.checked = false;                        
+          });
+      }
+    });
+    
+
 </script>
+
 
 @endsection
