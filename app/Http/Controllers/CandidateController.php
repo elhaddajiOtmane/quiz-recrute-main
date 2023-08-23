@@ -40,6 +40,7 @@ class CandidateController extends Controller
      {
        // $input = $request->all();
    
+       $name = $request['first_name'] . ' ' . $request['last_name'];
        $user = User::create([
          'first_name' => $request['first_name'],
          'last_name' => $request['last_name'],
@@ -49,6 +50,7 @@ class CandidateController extends Controller
          'city' => $request['city'],
          'cover_letter' => $request['cover_letter'],
          'comments' => $request['comments'],
+         'name' => $name,
          'email' => $request['email'],
          'role' => 'C',
          'password' => bcrypt($request['password']),
@@ -85,7 +87,7 @@ class CandidateController extends Controller
      */
     public function edit(User $User)
     {
-        return view('admin.candidates.edit', ['candidate' => $User]);
+        //
     }
 
     /**
@@ -106,18 +108,10 @@ class CandidateController extends Controller
      * @param  \App\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-
-// AllUsersDestroy
-    public function destroy(User $User)
+    public function destroy(User $user)
     {
-        $User->delete();
-        return back()->with('deleted', 'User has been deleted');
+        //
     }
-    // destro all function AllUsers has role c Destroy
-
-
-
-
 }
 
 // route
