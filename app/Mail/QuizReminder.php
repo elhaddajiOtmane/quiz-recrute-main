@@ -14,6 +14,7 @@ class QuizReminder extends Mailable
 // protected $email ;
 // protected $subject;
 // protected $message;
+public $user;
 
     /**
      * Create a new message instance.
@@ -28,6 +29,7 @@ class QuizReminder extends Mailable
     // }
     public function __construct()
     {
+      
     
     }
 

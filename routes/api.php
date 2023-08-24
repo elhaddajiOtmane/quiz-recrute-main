@@ -22,6 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::controller for CandidateControllerand for method only post
 
 Route::post('candidate', 'CandidateController@store');
+$user = [
+    'email' => 'alinniwa7@gmail.com', // Replace with the actual email address
+    // Other user data...
+];
 
 // Route::controller for usercontroller for method only post
 Route::post('email',function(){

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="{{asset('/images/logo/'. $setting->favicon)}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!--[if IE]>
     <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
     <![endif]-->

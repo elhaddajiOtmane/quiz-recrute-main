@@ -168,8 +168,33 @@ $cand = '';
                   <td>{{$user->address}}</td>
                   <td>{{$user->role == 'S' ? 'Student' : '-'}}</td>
                   <td>
+                    {{-- send eamil --}}
+                    <!-- Send Email Button -->
+                    <a type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#{{$user->id}}sendEmailModal"><i class="fa fa-envelope"></i> Send Email</a>
+                    <div id="{{$user->id}}sendEmailModal" class="send-email-modal modal fade" role="dialog">
+                      <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <div class="send-email-icon"></div>
+                              </div>
+                              <div class="modal-body text-center">
+                                  <h4 class="modal-heading">Send Email</h4>
+                                  <!-- Add the form for sending an email here -->
+                                  <!-- You can use an HTML form with appropriate fields for email composition -->
+                              </div>
+                              <div class="modal-footer">
+                                  <!-- Add any additional buttons or actions here -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                    {{-- end send button --}}
                     <!-- Edit Button -->
                     <a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#{{$user->id}}EditModal"><i class="fa fa-edit"></i> Edit</a>
+                    {{-- end edit button --}}
+
                     <!-- Delete Button -->
                     <a type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#{{$user->id}}deleteModal"><i class="fa fa-close"></i> Delete</a>
                     <div id="{{$user->id}}deleteModal" class="delete-modal modal fade" role="dialog">
@@ -278,11 +303,8 @@ $cand = '';
   @endif
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
 
-
-
-"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script>
