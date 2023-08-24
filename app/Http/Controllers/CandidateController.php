@@ -38,34 +38,51 @@ class CandidateController extends Controller
  
      public function store(Request $request)
      {
-       // $input = $request->all();
-   
-       $name = $request['first_name'] . ' ' . $request['last_name'];
-       $user = User::create([
-         'first_name' => $request['first_name'],
-         'last_name' => $request['last_name'],
-         'date_of_birth' => $request['date_of_birth'],
-         'desired_position' => $request['desired_position'],
-         'CV' => $request['CV'],
-         'city' => $request['city'],
-         'cover_letter' => $request['cover_letter'],
-         'comments' => $request['comments'],
-         'email' => $request['email'],
-         'role' => 'C',
-         'password' => bcrypt($request['password']),
-         'mobile' => $request['mobile'],
-       ]);
-
-   
-       // Check if user was created successfully
-       if ($user) {
-         // Return a JSON response indicating success and the new user's data
-         return response()->json(['message' => 'User has been added', 'user' => $user], 201);
-       } else {
-         // Handle the case where user creation failed
-         return response()->json(['message' => 'User creation failed'], 500);
-       }
+         // Validate the request data, including file uploads
+         $validatedData = $request->validate([
+             'first_name' => 'required|string|max:255',
+             'last_name' => 'required|string|max:255',
+             'date_of_birth' => 'required|date',
+             'desired_position' => 'required|string|max:255',
+             'CV' => 'required|file|mimes:pdf,doc,docx', // Define your file validation rules
+             'city' => 'required|string|max:255',
+             'cover_letter' => 'required|file|mimes:pdf,doc,docx', // Define your file validation rules
+             'comments' => 'nullable|string|max:1000',
+             'email' => 'required|email|unique:users,email',
+             'password' => 'required|string|min:8',
+             'mobile' => 'required|string|max:20',
+         ]);
+     
+         // Handle file uploads (CV and cover letter)
+         $cvPath = $request->file('CV')->store('public/cv'); // Store in the 'public/cv' directory
+         $coverLetterPath = $request->file('cover_letter')->store('public/cover_letters'); // Store in the 'public/cover_letters' directory
+     
+         // Create a new user record with the file paths
+         $user = User::create([
+             'first_name' => $validatedData['first_name'],
+             'last_name' => $validatedData['last_name'],
+             'date_of_birth' => $validatedData['date_of_birth'],
+             'desired_position' => $validatedData['desired_position'],
+             'CV' => $cvPath,
+             'city' => $validatedData['city'],
+             'cover_letter' => $coverLetterPath,
+             'comments' => $validatedData['comments'],
+             'email' => $validatedData['email'],
+             'role' => 'C',
+             'password' => bcrypt($validatedData['password']),
+             'mobile' => $validatedData['mobile'],
+         ]);
+     
+         // Check if user was created successfully
+         if ($user) {
+             // Return a JSON response indicating success and the new user's data
+             return response()->json(['message' => 'User has been added', 'user' => $user], 201);
+         } else {
+             // Handle the case where user creation failed
+             return response()->json(['message' => 'User creation failed'], 500);
+         }
      }
+     
 
     /**
      * Display the specified resource.
