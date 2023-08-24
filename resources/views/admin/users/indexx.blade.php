@@ -347,6 +347,3 @@ $cand = '';
 
 @endsection
 
-
-git remote add bitbucket https://elhaddajiotmane@bitbucket.org/elhaddajiotmane/recrutement-devconnect.git
-git remote add origin 
