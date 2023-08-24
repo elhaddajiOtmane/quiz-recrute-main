@@ -103,19 +103,28 @@ Route::get('/admin/profile', function () {
   }
 });
 // route for candidates list and routes for candidate take quiz
-Route::get('/admin/candidates', 'CandidateController@index')->name('candidates.index');
-Route::get('/admin/candidates/{id}', 'CandidateController@show')->name('candidates.show');
-Route::post('/all-candidates-destroy', 'DestroyAllController@AllCandidatesDestroy')->name('all.candidates.destroy');
-Route::get('/admin/candidates/{id}/quiz', 'CandidateController@quiz')->name('candidates.quiz');
-Route::post('/admin/candidates/{id}/quiz', 'CandidateController@quizStore')->name('candidates.quizStore');
-Route::get('/admin/candidates/{id}/result', 'CandidateController@result')->name('candidates.result');
-Route::get('/admin/candidates/{id}/result/{topic_id}', 'CandidateController@resultShow')->name('candidates.resultShow');
-Route::get('/admin/candidates/{id}/result/{topic_id}/pdf', 'CandidateController@resultPdf')->name('candidates.resultPdf');
-Route::get('/admin/my_reports', 'MyReportsController@index')->name('my_report');
-Route::get('/admin/my_reports/{my_reports}', 'MyReportsController@show')->name('my_report_show');
+Route::prefix('/admin')->middleware(['isadmin'])->group(function () {
+  // Candidate routes
+  Route::get('/candidates', 'CandidateController@index')->name('candidates.index');
+  Route::get('/candidates/{id}', 'CandidateController@show')->name('candidates.show');
+  Route::post('/all-candidates-destroy', 'DestroyAllController@AllCandidatesDestroy')->name('all.candidates.destroy');
+  Route::get('/candidates/{id}/quiz', 'CandidateController@quiz')->name('candidates.quiz');
+  Route::post('/candidates/{id}/quiz', 'CandidateController@quizStore')->name('candidates.quizStore');
+  Route::get('/candidates/{id}/result', 'CandidateController@result')->name('candidates.result');
+  Route::get('/candidates/{id}/result/{topic_id}', 'CandidateController@resultShow')->name('candidates.resultShow');
+  Route::get('/candidates/{id}/result/{topic_id}/pdf', 'CandidateController@resultPdf')->name('candidates.resultPdf');
 
-// turn candidate to student
-Route::post('/admin/candidate/update', 'CandidateController@updateCandidate')->name('candidate.update');
+  // Reports routes
+  Route::get('/my_reports', 'MyReportsController@index')->name('my_report');
+  Route::get('/my_reports/{my_reports}', 'MyReportsController@show')->name('my_report_show');
+
+  // Turn candidate to student
+  Route::post('/candidate/update', 'CandidateController@updateCandidate')->name('candidate.update');
+
+  // View CV and cover letter routes
+  Route::get('/view-cv/{id}', [CandidateController::class, 'viewCV']);
+  Route::get('/view-cover-letter/{id}', [CandidateController::class, 'viewCoverLetter']);
+});
 
 
 
