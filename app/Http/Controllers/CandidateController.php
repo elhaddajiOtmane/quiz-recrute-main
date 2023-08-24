@@ -52,10 +52,15 @@ class CandidateController extends Controller
              'password' => 'required|string|min:8',
              'mobile' => 'required|string|max:20',
          ]);
+
+        
      
          // Handle file uploads (CV and cover letter)
          $cvPath = $request->file('CV')->store('public/cv'); // Store in the 'public/cv' directory
          $coverLetterPath = $request->file('cover_letter')->store('public/cover_letters'); // Store in the 'public/cover_letters' directory
+
+         $cvPath = str_replace('public/', '', $cvPath);
+         $coverLetterPath = str_replace('public/', '', $coverLetterPath);
      
          // Create a new user record with the file paths
          $user = User::create([
