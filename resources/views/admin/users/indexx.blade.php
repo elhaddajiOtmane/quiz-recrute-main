@@ -180,11 +180,26 @@ $cand = '';
                               </div>
                               <div class="modal-body text-center">
                                   <h4 class="modal-heading">Send Email</h4>
-                                  <!-- Add the form for sending an email here -->
-                                  <!-- You can use an HTML form with appropriate fields for email composition -->
-                              </div>
-                              <div class="modal-footer">
-                                  <!-- Add any additional buttons or actions here -->
+                                  <!-- Email Form -->
+                                  <form action="/send_email" method="post">
+                                      @csrf
+                                      <div class="form-group">
+                                          <label for="recipient">Recipient Email:</label>
+                                          <input type="email" class="form-control" id="recipient" name="recipient" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="subject">Subject:</label>
+                                          <input type="text" class="form-control" id="subject" name="subject" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="message">Message:</label>
+                                          <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-gray" data-dismiss="modal">Cancel</button>
+                                          <button type="submit" class="btn btn-primary">Send</button>
+                                      </div>
+                                  </form>
                               </div>
                           </div>
                       </div>
@@ -337,11 +352,13 @@ $cand = '';
     // Instead of pushing the data-id attribute, push the email address
     var email = $(this).closest('tr').find('td:nth-child(5)').text();
     users.push(email);
+  -+
   });
 
   console.log(users);
 
   if (users.length > 0) {
+    
     $.ajax({
   url: "http://127.0.0.1:8000/api/email",
   method: "POST",

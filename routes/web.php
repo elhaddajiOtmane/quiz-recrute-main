@@ -7,6 +7,8 @@ use App\copyrighttext;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CandidateController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -117,13 +119,14 @@ Route::prefix('/admin')->middleware(['isadmin'])->group(function () {
   // Reports routes
   Route::get('/my_reports', 'MyReportsController@index')->name('my_report');
   Route::get('/my_reports/{my_reports}', 'MyReportsController@show')->name('my_report_show');
+  
 
   // Turn candidate to student
   Route::post('/candidate/update', 'CandidateController@updateCandidate')->name('candidate.update');
-
-  // View CV and cover letter routes
-  Route::get('/view-cv/{id}', [CandidateController::class, 'viewCV']);
-  Route::get('/view-cover-letter/{id}', [CandidateController::class, 'viewCoverLetter']);
+          
+   // View CV and cover letter routes
+  Route::get('/view-cv/{id}', 'CandidateController@viewCV')->name('view.cv');
+  Route::get('/view-cover-letter/{id}','CandidateController@viewCoverLetter')->name('view.cover.letter');
 });
 
 

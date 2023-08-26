@@ -173,9 +173,9 @@ $cand = 'active';
                   <td>{{$candidate->last_name}}</td>
                   <td>{{$candidate->date_of_birth}}</td>
                   <td>{{$candidate->desired_position}}</td>
-                  <td>{{$candidate->CV}}</td>
+                  <td><a href="{{ url('admin/view-cv', ['id' => $candidate->id]) }}" target="_blank">View CV</a></td>
                   <td>{{$candidate->city}}</td>
-                  <td>{{$candidate->cover_letter}}</td>
+                  <td><a href="{{ url('admin/view-cover-letter', ['id' => $candidate->id]) }}" target="_blank">View Cover Letter</a></td>
                   <td>{{$candidate->comments}}</td>
                   <td>
                   

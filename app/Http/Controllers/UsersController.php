@@ -25,24 +25,7 @@ class UsersController extends Controller
 
   // =================function send email to students=============
   
-  public function sendEmail(Request $request)
-  {
-    $request->validate([
-      'email' => 'required|email',
-      'subject' => 'required',
-      'message' => 'required',
-    ]);
-
-    $data = array(
-      'email' => $request->email,
-      'subject' => $request->subject,
-      'message' => $request->message,
-    );
-
-    Mail::to($data['email'])->send(new QuizReminder($data));
-
-    return back()->with('success', 'Thanks for contacting us!');
-  }
+  
 
   /**
    * Show the form for creating a new resource.
